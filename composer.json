@@ -11,10 +11,12 @@
         "doctrine/doctrine-fixtures-bundle": "^3.4",
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.13",
+        "fzaninotto/faker": "^1.9",
         "symfony/console": "5.4.*",
         "symfony/dotenv": "5.4.*",
         "symfony/flex": "^1.17|^2",
         "symfony/framework-bundle": "5.4.*",
+        "symfony/maker-bundle": "^1.43",
         "symfony/proxy-manager-bridge": "5.4.*",
         "symfony/runtime": "5.4.*",
         "symfony/twig-bundle": "5.4.*",
@@ -69,8 +71,5 @@
             "allow-contrib": false,
             "require": "5.4.*"
         }
-    },
-    "require-dev": {
-        "symfony/maker-bundle": "^1.43"
     }
 }

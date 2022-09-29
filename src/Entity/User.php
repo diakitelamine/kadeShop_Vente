@@ -45,7 +45,7 @@ class User
     private $password;
 
     /**
-     * @ORM\Column(type="datetime_immutable")
+     * @ORM\Column(type="datetime")
      */
     private $created_At;
 
@@ -126,12 +126,12 @@ class User
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getCreatedAt(): ?\DateTime
     {
         return $this->created_At;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $created_At): self
+    public function setCreatedAt(\DateTime $created_At): self
     {
         $this->created_At = $created_At;
 
