@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
 use App\Repository\ArticleRepository;
 use App\Repository\CategoryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -45,6 +46,27 @@ class HomeController extends AbstractController
 
         return $this->render('show/index.html.twig', [
             'article' => $article,
+        ]);
+    }
+
+
+    /**
+     * @Route("/showArticle/{id}", name="show_article")
+     */
+    public function showArticle(Category $category): Response
+    {     
+
+        if($category){
+            $articles = $category->getArticles()->getValues();
+        } else {
+            $articles = null;
+            return $this->redirectToRoute('home');
+        }
+         // Recuperation des categories
+        $categories = $this->repoCategory->findAll();
+        return $this->render('home/index.html.twig', [
+            'articles' => $articles,
+            'categories'=>$categories,
         ]);
     }
 
