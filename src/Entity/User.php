@@ -6,11 +6,15 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @UniqueEntity(fields={"email", "username"}, message="L'email est déja utilisé !")
  */
-class User
+class User implements UserInterface
 {
     /**
      * @ORM\Id
@@ -20,11 +24,13 @@ class User
     private $id;
 
     /**
+     *
      * @ORM\Column(type="string", length=255)
      */
     private $username;
 
     /**
+     * 
      * @ORM\Column(type="string", length=255)
      */
     private $firstname;
@@ -36,11 +42,13 @@ class User
 
     /**
      * @ORM\Column(type="string", length=255)
+     * 
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $password;
 
@@ -54,7 +62,7 @@ class User
      */
     private $articles;
 
-    
+    private $passwordConfirm;
 
     public function __construct()
     {
@@ -76,6 +84,20 @@ class User
     {
         $this->username = $username;
 
+        return $this;
+    }
+
+
+
+    public function getPasswordConfirm(): ?string 
+    {
+       return $this->passwordConfirm;
+    }
+
+
+    public function setPasswordConfirm(string $passwordConfirm) :self
+    {
+        $this->passwordConfirm = $passwordConfirm;
         return $this;
     }
 
@@ -174,5 +196,19 @@ class User
         return $this;
     }
 
+    public function getRoles(){
+        return ['ROLE_USER'];
+    }
+
+
+    public function getSalt(){}
+
+    
+    public function eraseCredentials(){}
+
+    public function getUserIdentifier()
+    {
+        return $this->username;
+    }
     
 }
